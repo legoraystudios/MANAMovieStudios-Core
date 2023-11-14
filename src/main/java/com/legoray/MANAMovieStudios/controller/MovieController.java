@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movies")
@@ -41,6 +42,21 @@ public class MovieController {
         } else {
             return null;
         }
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Movies> getMovieById(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable int id) {
+        return service.getMovieById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public Optional<Movies> getMovieByName(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable String name) {
+        return service.getMovieByName(name);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<JsonResponse> deleteMovieById(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable int id) {
+        return service.deleteMovie(id);
     }
 
 }

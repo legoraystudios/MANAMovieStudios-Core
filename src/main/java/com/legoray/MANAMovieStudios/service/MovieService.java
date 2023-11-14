@@ -56,12 +56,22 @@ public class MovieService {
 
     }
 
-    public Movies getCategoryById(int id) {
-        return repository.findById(id).orElse(null);
-    }
-
     public List<Movies> getMovies() {
         return repository.findAll();
+    }
+
+    public Optional<Movies> getMovieById(int id) {
+        return repository.findById(id);
+    }
+
+    public Optional<Movies> getMovieByName(String name) {
+        return repository.findByMovieName(name);
+    }
+
+    public ResponseEntity<JsonResponse> deleteMovie(int id) {
+        repository.deleteById(id);
+        JsonResponse successResponse = new JsonResponse("Movie deleted successfully!");
+        return ResponseEntity.status(200).body(successResponse);
     }
 
 }
