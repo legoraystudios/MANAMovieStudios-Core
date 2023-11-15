@@ -68,10 +68,22 @@ public class MovieService {
         return repository.findByMovieName(name);
     }
 
-    public ResponseEntity<JsonResponse> deleteMovie(int id) {
-        repository.deleteById(id);
-        JsonResponse successResponse = new JsonResponse("Movie deleted successfully!");
-        return ResponseEntity.status(200).body(successResponse);
+    public ResponseEntity<JsonResponse> deleteMovie(int id, String cookieValue) {
+
+        int userId = userRepository.findByUsername(cookieValue).get().getId();
+        int userIdMovies = repository.findById(id).get().getUserId();
+
+        if(userId == userIdMovies) {
+            repository.deleteById(id);
+            JsonResponse successResponse = new JsonResponse("Movie deleted successfully!");
+            return ResponseEntity.status(200).body(successResponse);
+        } else {
+            JsonResponse errorResponse = new JsonResponse("You don't have permissions to perform this action.");
+            return ResponseEntity.status(401).body(errorResponse);
+        }
+
+
+
     }
 
 }

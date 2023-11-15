@@ -31,12 +31,24 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private Set<Movies> manaMovies = new HashSet<>();
 
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY)
+	private Set<Reviews> manaReviews = new HashSet<>();
+
 	public Set<Movies> getManaMovies() {
 		return manaMovies;
 	}
 
 	public void setManaMovies(Set<Movies> manaMovies) {
 		this.manaMovies = manaMovies;
+	}
+
+	public Set<Reviews> getManaReviews() {
+		return manaReviews;
+	}
+
+	public void setManaReviews(Set<Reviews> manaReviews) {
+		this.manaReviews = manaReviews;
 	}
 
 	public int getId() {

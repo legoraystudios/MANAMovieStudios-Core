@@ -1,9 +1,13 @@
 package com.legoray.MANAMovieStudios.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,5 +36,9 @@ public class Movies {
     @JoinColumn(name = "user_id", insertable=false, updatable=false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Reviews> manaReviews = new HashSet<>();
 
 }
