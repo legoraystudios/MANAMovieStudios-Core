@@ -37,30 +37,18 @@ public class MovieController {
     }
 
     @GetMapping("/")
-    public List<Movies> getMovies(@CookieValue(name = "MMS-Session") String cookieValue) {
-        if(!cookieValue.isEmpty()) {
+    public List<Movies> getMovies(String cookieValue) {
             return service.getMovies();
-        } else {
-            return null;
-        }
     }
 
     @GetMapping("/{id}")
-    public Optional<Movies> getMovieById(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable int id) {
-        if(!cookieValue.isEmpty()) {
+    public Optional<Movies> getMovieById(@PathVariable int id) {
             return service.getMovieById(id);
-        } else {
-            return null;
-        }
     }
 
     @GetMapping("/name/{name}")
-    public Optional<Movies> getMovieByName(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable String name) {
-        if(!cookieValue.isEmpty()) {
+    public Optional<Movies> getMovieByName(@PathVariable String name) {
             return service.getMovieByName(name);
-        } else {
-            return null;
-        }
     }
 
     @DeleteMapping("/{id}")

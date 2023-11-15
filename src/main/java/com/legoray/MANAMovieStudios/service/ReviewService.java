@@ -25,6 +25,7 @@ public class ReviewService {
 
     public ResponseEntity<JsonResponse> saveReview(Reviews review, String cookieValue) {
 
+
         int userId = userRepository.findByUsername(cookieValue).get().getId();
 
         review.setUserId(userId);
@@ -40,6 +41,10 @@ public class ReviewService {
 
     public Optional<Reviews> getReviewById(int id) {
         return repository.findById(id);
+    }
+
+    public Optional<Reviews> getReviewByMovieId(int id) {
+        return repository.findByMovieId(id);
     }
 
     public ResponseEntity<JsonResponse> deleteReview(int id, String cookieValue) {

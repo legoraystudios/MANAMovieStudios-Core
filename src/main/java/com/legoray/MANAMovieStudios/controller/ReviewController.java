@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/reviews")
@@ -28,17 +29,23 @@ public class ReviewController {
     }
 
     @GetMapping("/")
-    public List<Reviews> getReviews(@CookieValue(name = "MMS-Session") String cookieValue) {
-        if(!cookieValue.isEmpty()) {
+    public List<Reviews> getReviews(String cookieValue) {
             return service.getReviews();
-        } else {
-            return null;
-        }
+    }
+
+    @GetMapping("/movie/{id}")
+    public Optional<Reviews> getByMovieId(String cookieValue, @PathVariable int id) {
+             return service.getReviewByMovieId(id);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Reviews> getReviewById(String cookieValue, @PathVariable int id) {
+            return service.getReviewById(id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<JsonResponse> deleteReview(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable int id) {
-        if(!cookieValue.isEmpty()) {
+        if (!cookieValue.isEmpty()) {
             return service.deleteReview(id, cookieValue);
         } else {
             JsonResponse errorResponse = new JsonResponse("You don't have permissions to perform this action.");
