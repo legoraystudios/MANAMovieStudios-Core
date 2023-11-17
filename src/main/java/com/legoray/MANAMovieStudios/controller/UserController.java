@@ -23,6 +23,7 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
+	@CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
 	@GetMapping("/")
 	public List<User> getUsers(@CookieValue(name = "MMS-Session") String cookieValue) {
 		if(!cookieValue.isEmpty()) {
@@ -32,6 +33,7 @@ public class UserController {
 		}
 	}
 
+	@CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
 	@GetMapping("/{id}")
 	public User getUsersById(@PathVariable int id, @CookieValue(name = "MMS-Session") String cookieValue) {
 		if(!cookieValue.isEmpty()) {

@@ -1,24 +1,20 @@
 package com.legoray.MANAMovieStudios.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.legoray.MANAMovieStudios.entity.Category;
-import com.legoray.MANAMovieStudios.entity.MovieWithUsernameDTO;
-import com.legoray.MANAMovieStudios.entity.Movies;
-import com.legoray.MANAMovieStudios.entity.User;
+import com.legoray.MANAMovieStudios.entity.*;
 import com.legoray.MANAMovieStudios.repository.CategoryRepository;
 import com.legoray.MANAMovieStudios.repository.MovieRepository;
+import com.legoray.MANAMovieStudios.repository.ReviewRepository;
 import com.legoray.MANAMovieStudios.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import com.legoray.MANAMovieStudios.utilities.JsonResponse;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import static java.lang.Integer.parseInt;
 
 @Service
 public class MovieService {
@@ -29,6 +25,8 @@ public class MovieService {
     private CategoryRepository categoryRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public ResponseEntity<JsonResponse> saveMovie(Movies movie, String cookieValue) {
 
@@ -81,8 +79,6 @@ public class MovieService {
             JsonResponse errorResponse = new JsonResponse("You don't have permissions to perform this action.");
             return ResponseEntity.status(401).body(errorResponse);
         }
-
-
 
     }
 

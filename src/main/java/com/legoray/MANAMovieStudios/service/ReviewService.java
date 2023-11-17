@@ -43,7 +43,7 @@ public class ReviewService {
         return repository.findById(id);
     }
 
-    public Optional<Reviews> getReviewByMovieId(int id) {
+    public List<Reviews> getReviewByMovieId(int id) {
         return repository.findByMovieId(id);
     }
 

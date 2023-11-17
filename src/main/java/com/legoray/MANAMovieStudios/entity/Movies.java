@@ -27,6 +27,10 @@ public class Movies {
     private String movieDirector;
     @Column(name = "movie_actors", nullable = false)
     private String movieActors;
+    @Transient
+    private int reviewsCount;
+    @Transient
+    private double overallRating;
     @Column(name = "category_id", nullable = false)
     private int categoryId;
     @Column(name = "user_id", nullable = false)
@@ -38,7 +42,30 @@ public class Movies {
     private User user;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "movies")
     private Set<Reviews> manaReviews = new HashSet<>();
+
+    public double getOverallRating() {
+        double sum = 0.0;
+        int count = 0;
+
+        for (Reviews review : manaReviews) {
+            sum += review.getReviewRating();
+            count++;
+        }
+
+        return count > 0 ? sum / count : 0.0;
+    }
+
+    public int getReviewsCount() {
+        int count = 0;
+
+        for (Reviews review : manaReviews) {
+            count++;
+        }
+
+        return count;
+    }
+
 
 }

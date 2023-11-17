@@ -21,16 +21,19 @@ public class AuthController {
     @Autowired
     public AuthService authService;
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/register")
     public ResponseEntity<JsonResponse> addUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/login")
     public ResponseEntity<JsonResponse> login(@RequestBody LoginDto login, HttpServletResponse response) {
         return authService.login(login, response);
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/logout")
     public ResponseEntity<JsonResponse> logout(@CookieValue(name = "MMS-Session") String cookieValue, HttpServletResponse response) {
 

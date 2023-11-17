@@ -18,6 +18,7 @@ public class ReviewController {
     @Autowired
     private ReviewService service;
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/create")
     public ResponseEntity<JsonResponse> createReview(@CookieValue(name = "MMS-Session") String cookieValue, @RequestBody Reviews review) {
         if(!cookieValue.isEmpty()) {
@@ -28,21 +29,25 @@ public class ReviewController {
         }
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/")
     public List<Reviews> getReviews(String cookieValue) {
             return service.getReviews();
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/movie/{id}")
-    public Optional<Reviews> getByMovieId(String cookieValue, @PathVariable int id) {
+    public List<Reviews> getByMovieId(String cookieValue, @PathVariable int id) {
              return service.getReviewByMovieId(id);
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/{id}")
     public Optional<Reviews> getReviewById(String cookieValue, @PathVariable int id) {
             return service.getReviewById(id);
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @DeleteMapping("/{id}")
     public ResponseEntity<JsonResponse> deleteReview(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable int id) {
         if (!cookieValue.isEmpty()) {

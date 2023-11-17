@@ -16,6 +16,7 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/create")
     public ResponseEntity<JsonResponse> createCategory(@CookieValue(name = "MMS-Session") String cookieValue, @RequestBody Category category) {
         if(!cookieValue.isEmpty()) {
@@ -26,6 +27,7 @@ public class CategoryController {
         }
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/")
     public List<Category> getCategories(@CookieValue(name = "MMS-Session") String cookieValue) {
         if(!cookieValue.isEmpty()) {
@@ -35,6 +37,7 @@ public class CategoryController {
         }
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/{id}")
     public Category getCategory(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable int id) {
         if(!cookieValue.isEmpty()) {
