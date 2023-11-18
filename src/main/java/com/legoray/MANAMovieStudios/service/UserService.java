@@ -35,6 +35,10 @@ public class UserService {
 	public List<User> saveUsers(List<User> users) {
 		return repository.saveAll(users);
 	}
+
+	public Optional<User> getUserByUsername(String username) {
+		return repository.findByUsername(username);
+	}
 	
 	public List<User> getUsers() {
 		return repository.findAll();

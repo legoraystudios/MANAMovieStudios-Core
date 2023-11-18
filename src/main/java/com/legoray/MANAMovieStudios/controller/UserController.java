@@ -15,6 +15,7 @@ import com.legoray.MANAMovieStudios.service.UserService;
 import com.legoray.MANAMovieStudios.utilities.JsonResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -40,6 +41,16 @@ public class UserController {
 			return service.getUsersById(id);
 		} else {
 			return null;
+		}
+	}
+
+	@CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
+	@GetMapping("/session")
+	public Optional<User> getUserByUsername(@CookieValue(name = "MMS-Session") String cookieValue) {
+		if(!cookieValue.isEmpty()) {
+			return service.getUserByUsername(cookieValue);
+		} else {
+			return Optional.empty();
 		}
 	}
 
