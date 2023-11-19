@@ -1,6 +1,7 @@
 package com.legoray.MANAMovieStudios.service;
 
 import com.legoray.MANAMovieStudios.entity.LoginDto;
+import com.legoray.MANAMovieStudios.entity.RegisterDto;
 import com.legoray.MANAMovieStudios.entity.User;
 import com.legoray.MANAMovieStudios.jwt.JwtService;
 import com.legoray.MANAMovieStudios.repository.UserRepository;
@@ -14,16 +15,39 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class AuthService {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private UserService userService;
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private JwtService jwtService;
+
+    public ResponseEntity<JsonResponse> register(RegisterDto register) {
+
+        User existingUser = userRepository.findByUsername(register.getUsername()).orElse(null);
+
+        if(existingUser == null) {
+
+            User user = new User();
+            user.setFirstName(register.getFirstName());
+            user.setLastName(register.getLastName());
+            user.setUsername(register.getUsername());
+            user.setPassword(register.getPassword());
+            user.setDob(register.getDob());
+
+            userService.saveUser(user);
+            JsonResponse successResponse = new JsonResponse("Account created successfully");
+            return ResponseEntity.status(200).body(successResponse);
+        } else {
+            JsonResponse errorResponse = new JsonResponse("Username already exist in our records");
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
 
     public ResponseEntity<JsonResponse> login(LoginDto login, HttpServletResponse response) {
 

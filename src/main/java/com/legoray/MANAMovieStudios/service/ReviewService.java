@@ -30,6 +30,11 @@ public class ReviewService {
 
         review.setUserId(userId);
 
+        if (review.getReviewTitle().isEmpty() || review.getReviewRating() > 5 || review.getReviewRating() < 1) {
+            JsonResponse errorResponse = new JsonResponse("Review Title and/or Review Rating need to be between 1 and 5");
+            return ResponseEntity.status(400).body(errorResponse);
+        }
+
         repository.save(review);
         JsonResponse successResponse = new JsonResponse("Review created successfully");
         return ResponseEntity.status(200).body(successResponse);

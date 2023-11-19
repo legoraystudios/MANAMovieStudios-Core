@@ -1,6 +1,7 @@
 package com.legoray.MANAMovieStudios.controller;
 
 import com.legoray.MANAMovieStudios.entity.LoginDto;
+import com.legoray.MANAMovieStudios.entity.RegisterDto;
 import com.legoray.MANAMovieStudios.entity.User;
 import com.legoray.MANAMovieStudios.service.AuthService;
 import com.legoray.MANAMovieStudios.service.UserService;
@@ -23,8 +24,8 @@ public class AuthController {
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/register")
-    public ResponseEntity<JsonResponse> addUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<JsonResponse> addUser(@RequestBody RegisterDto register) {
+        return authService.register(register);
     }
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")

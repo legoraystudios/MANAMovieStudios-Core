@@ -17,19 +17,8 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public ResponseEntity<JsonResponse> saveUser(User user) {
-
-		Optional<User> existingUser = repository.findByUsername(user.getUsername());
-		
-		if(existingUser.isPresent()) {
-			JsonResponse errorResponse = new JsonResponse("Username already exist in our records");
-			return ResponseEntity.badRequest().body(errorResponse);
-		} else {
-			repository.save(user);
-			JsonResponse successResponse = new JsonResponse("Account created successfully");
-			return ResponseEntity.status(200).body(successResponse);
-		}
-		
+	public void saveUser(User user) {
+		repository.save(user);
 	}
 	
 	public List<User> saveUsers(List<User> users) {
