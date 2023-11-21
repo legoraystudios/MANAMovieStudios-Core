@@ -30,6 +30,17 @@ public class ReviewController {
     }
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
+    @PutMapping ("/{id}")
+    public ResponseEntity<JsonResponse> updateReview(@CookieValue(name = "MMS-Session") String cookieValue, @RequestBody Reviews review, @PathVariable int id) {
+        if(!cookieValue.isEmpty()) {
+            return service.updateReview(id, review, cookieValue);
+        } else {
+            JsonResponse errorResponse = new JsonResponse("You don't have permissions to perform this action.");
+            return ResponseEntity.status(401).body(errorResponse);
+        }
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/")
     public List<Reviews> getReviews(String cookieValue) {
             return service.getReviews();
@@ -45,6 +56,12 @@ public class ReviewController {
     @GetMapping("/{id}")
     public Optional<Reviews> getReviewById(String cookieValue, @PathVariable int id) {
             return service.getReviewById(id);
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
+    @GetMapping("/user/{id}")
+    public List<Reviews> getReviewByUserId(@PathVariable int id) {
+        return service.getReviewByUserId(id);
     }
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")

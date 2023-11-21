@@ -52,6 +52,34 @@ public class ReviewService {
         return repository.findByMovieId(id);
     }
 
+    public List<Reviews> getReviewByUserId(int id) {
+        return repository.findByUserId(id);
+    }
+
+    public ResponseEntity<JsonResponse> updateReview(int id, Reviews review, String cookieValue) {
+
+        Reviews existingReview = repository.findById(id).orElse(null);
+        int userId = userRepository.findByUsername(cookieValue).get().getId();
+
+        if (existingReview == null) {
+            JsonResponse errorResponse = new JsonResponse("Review not found in our records.");
+            return ResponseEntity.status(404).body(errorResponse);
+        } else if (userId == existingReview.getUserId()) {
+            existingReview.setReviewTitle(review.getReviewTitle());
+            existingReview.setReviewRating(review.getReviewRating());
+            existingReview.setReviewText(review.getReviewText());
+
+            repository.save(existingReview);
+
+            JsonResponse successResponse = new JsonResponse("Review updated successfully!");
+            return ResponseEntity.status(200).body(successResponse);
+        } else {
+            JsonResponse errorResponse = new JsonResponse("You don't have permissions to perform this action.");
+            return ResponseEntity.status(401).body(errorResponse);
+        }
+
+    }
+
     public ResponseEntity<JsonResponse> deleteReview(int id, String cookieValue) {
 
         int userId = userRepository.findByUsername(cookieValue).get().getId();

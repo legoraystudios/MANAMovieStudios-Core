@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Reviews, Integer> {
     List<Reviews> findByMovieId(int movieId);
+    List<Reviews> findByUserId(int userId);
 }

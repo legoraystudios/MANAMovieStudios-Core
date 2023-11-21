@@ -29,22 +29,14 @@ public class CategoryController {
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/")
-    public List<Category> getCategories(@CookieValue(name = "MMS-Session") String cookieValue) {
-        if(!cookieValue.isEmpty()) {
+    public List<Category> getCategories() {
             return service.getCategories();
-        } else {
-            return null;
-        }
     }
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/{id}")
-    public Category getCategory(@CookieValue(name = "MMS-Session") String cookieValue, @PathVariable int id) {
-        if(!cookieValue.isEmpty()) {
+    public Category getCategory(@PathVariable int id) {
             return service.getCategoryById(id);
-        } else {
-            return null;
-        }
     }
 
 }

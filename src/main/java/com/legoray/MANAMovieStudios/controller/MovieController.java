@@ -54,9 +54,32 @@ public class MovieController {
     }
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
+    @GetMapping("/user/{id}")
+    public List<Movies> getMovieByUserId(@PathVariable int id) {
+        return service.getMovieByUserId(id);
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/name/{name}")
     public Optional<Movies> getMovieByName(@PathVariable String name) {
             return service.getMovieByName(name);
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
+    @GetMapping("/top")
+    public List<Movies> getTopTenMovies() {
+        return service.getTopTenMovies();
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
+    @PutMapping ("/{id}")
+    public ResponseEntity<JsonResponse> updateReview(@PathVariable int id, @RequestBody Movies movie, @CookieValue(name = "MMS-Session") String cookieValue) {
+        if(!cookieValue.isEmpty()) {
+            return service.updateMovie(id, movie, cookieValue);
+        } else {
+            JsonResponse errorResponse = new JsonResponse("You don't have permissions to perform this action.");
+            return ResponseEntity.status(401).body(errorResponse);
+        }
     }
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
