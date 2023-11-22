@@ -68,6 +68,10 @@ public class MovieService {
 
     public List<Movies> getMovieByUserId(int userId) { return repository.findByUserId(userId); }
 
+    public List<Movies> getMovieByCategoryId(int categoryId) {
+        return repository.findByCategoryId(categoryId);
+    }
+
     public List<Movies> getTopTenMovies() {
         return repository.findTop10ByOrderByOverallRatingDesc();
     }

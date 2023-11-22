@@ -66,6 +66,12 @@ public class MovieController {
     }
 
     @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
+    @GetMapping("/category/{id}")
+    public List<Movies> getMovieByCategoryId(@PathVariable int id) {
+        return service.getMovieByCategoryId(id);
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}", allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/top")
     public List<Movies> getTopTenMovies() {
         return service.getTopTenMovies();

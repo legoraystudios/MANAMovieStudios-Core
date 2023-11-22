@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public interface MovieRepository extends JpaRepository<Movies, Integer> {
     Optional<Movies> findByMovieName(String movieName);
     List<Movies> findByUserId(int userId);
+    List<Movies> findByCategoryId(int categoryId);
     default List<Movies> findTop10ByOrderByOverallRatingDesc() {
 
         List<Movies> allMovies = findAll();
