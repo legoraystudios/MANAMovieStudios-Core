@@ -22,7 +22,7 @@ git clone https://github.com/legoraystudios/MANAMovieStudios-Clone.git
 
 2. Extract all the files on the folder if there's on a `.zip` file.
 
-3. Import the `database.db` file on your MySQL or MariaDB database.
+3. Import the `database.sql` file on your MySQL or MariaDB database.
 
 4. Open the `application.properties` file on the project and replace `allowed.origins` with your actual FrontEnd URL.
 
