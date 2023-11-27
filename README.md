@@ -53,4 +53,82 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 6. Run `mvn package` to compile your API Server into a `.jar` file.
 
+
+
+## API Endpoints
+
+#### Auth
+
+```http
+ http://localhost:3000/auth/
+```
+
+| Path        | Method   | Description                         |
+| :---------- | :------- | :---------------------------------- |
+| `/login`    | `POST`   | Login into your account.            |
+| `/register` | `POST`   | Register a new account.             |
+| `/logout`   | `POST`   | Logout from your current account.   |
+
+#### Category
+
+```http
+ http://localhost:3000/category/
+```
+
+| Path        | Method   | Description                             |
+| :---------- | :------- | :-------------------------------------- |
+| `/create`   | `POST`   | Create a new category.                  |
+| `/`         | `GET`    | Get all categories.                     |
+| `/:id`      | `GET`    | Get category by specific Category ID.   |
+
+#### User
+
+```http
+ http://localhost:3000/user/
+```
+
+| Path        | Method   | Description                                 |
+| :---------- | :------- | :------------------------------------------ |
+| `/:id`      | `GET`    | Get user by specific User ID.               |
+| `/`         | `GET`    | Get all users.                              |
+| `/session`  | `GET`    | Get user already logged in on the session.  |
+
+#### Movies
+
+```http
+ http://localhost:3000/movies/
+```
+
+| Path           | Method   | Description                                      |
+| :------------- | :------- | :----------------------------------------------- |
+| `/create`      | `POST`   | Create a new movie.                              |
+| `/`            | `GET`    | Get all movies.                                  |
+| `/:id`         | `GET`    | Get movie by specific Movie ID.                  |
+| `/name/:name`  | `GET`    | Get movie by specific Movie Name.                |
+| `/:id`         | `DELETE` | Delete movie by specific Movie ID.               |
+| `/user/:id`    | `GET`    | Get movie by specific User ID.                   |
+| `/:id`         | `PUT`    | Edit Movie by specific Movie ID.                 |
+| `/top`         | `GET`    | Get Top 10 Movies (According by their reviews).  |
+| `/category/:id`| `GET`    | Get Movies by Category ID.                       |
+
+#### Reviews
+
+```http
+ http://localhost:3000/reviews/
+```
+
+| Path           | Method   | Description                          |
+| :------------- | :------- | :----------------------------------- |
+| `/create`      | `POST`   | Create a new review.                 |
+| `/`            | `GET`    | Get all reviews.                     |
+| `/:id`         | `GET`    | Get review by specific Review ID.    |
+| `/movie/:id`   | `GET`    | Get review by specific Movie ID.     |
+| `/:id`         | `DELETE` | Delete review by specific Review ID. |
+| `/:id`         | `PUT`    | Edit review by specific Review ID.   |
+| `/user/:id`    | `GET`    | Get review by specific User ID.      |
+| `/category/:id`| `GET`    | Get Movies by Category ID.           |
+
+
+
+
     
