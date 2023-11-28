@@ -17,7 +17,7 @@ I've been created this project for a class in my University. This project intend
 1. Download [here](https://github.com/legoraystudios/MANAMovieStudios-Core) or clone it in a empty folder with the following command (Requires Git)
 
 ```bash
-git clone https://github.com/legoraystudios/MANAMovieStudios-Clone.git
+git clone https://github.com/legoraystudios/MANAMovieStudios-Core.git
 ```
 
 2. Extract all the files on the folder if there's on a `.zip` file.
